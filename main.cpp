@@ -13,10 +13,10 @@ AnalogIn vr2(A0);
 int d1, d2, d3,
     f1_1,f1_2,f1_3,f1_4,f1_5,f1_6,
     f2_1,f2_2,f2_3,f2_4,f2_5,f2_6,
-    busy1_1,busy1_2,busy1_3,busy1_4,busy1_5,busy1_6,
-    busy2_1,busy2_2,busy2_3,busy2_4,busy2_5,busy2_6,
-    hold1_1,hold1_2,hold1_3,hold1_4,hold1_5,hold1_6,
-    hold2_1,hold2_2,hold2_3,hold2_4,hold2_5,hold2_6,
+    busy1_1,busy1_2,busy1_3,
+    busy2_1,busy2_2,busy2_3,
+    hold1_1,hold1_2,hold1_3,
+    hold2_1,hold2_2,hold2_3,
     poly_n1,poly_n2;
 
 int min_on = 5;
@@ -37,15 +37,9 @@ int ftime[128] = {122312,115447,108968,102852,97079,91631,86488,81634,77052,7272
 Ticker ch1_1;
 Ticker ch1_2;
 Ticker ch1_3;
-Ticker ch1_4;
-Ticker ch1_5;
-Ticker ch1_6;
 Ticker ch2_1;
 Ticker ch2_2;
 Ticker ch2_3;
-Ticker ch2_4;
-Ticker ch2_5;
-Ticker ch2_6;
 Timeout width1;
 Timeout width2;
             
@@ -61,15 +55,9 @@ int main()
     ch1_1.detach();busy1_1 = 0;hold1_1 = 255;
     ch1_2.detach();busy1_2 = 0;hold1_2 = 255;
     ch1_3.detach();busy1_3 = 0;hold1_3 = 255;
-    ch1_4.detach();busy1_4 = 0;hold1_4 = 255;
-    ch1_5.detach();busy1_5 = 0;hold1_5 = 255;
-    ch1_6.detach();busy1_6 = 0;hold1_6 = 255;
     ch2_1.detach();busy2_1 = 0;hold2_1 = 255;
     ch2_2.detach();busy2_2 = 0;hold2_2 = 255;
-    ch2_3.detach();busy2_3 = 0;hold2_3 = 255;
-    ch2_4.detach();busy2_4 = 0;hold2_4 = 255;
-    ch2_5.detach();busy2_5 = 0;hold2_5 = 255;
-    ch2_6.detach();busy2_6 = 0;hold2_6 = 255;               
+    ch2_3.detach();busy2_3 = 0;hold2_3 = 255;               
     midi.baud(31250);
     midi.format(8,Serial::None,1);
     while(1){
@@ -107,21 +95,6 @@ int main()
                                         busy1_3 = 1;
                                         hold1_3 = d2;
                                         ch1_3.attach_us(&ch1_h,f1_3);
-                    }else if(d3 > 0 && busy1_4 == 0){
-                                        f1_4 = ftime[d2];
-                                        busy1_4 = 1;
-                                        hold1_4 = d2;
-                                        ch1_4.attach_us(&ch1_h,f1_4);
-                    }else if(d3 > 0 && busy1_5 == 0){
-                                        f1_5 = ftime[d2];
-                                        busy1_5 = 1;
-                                        hold1_5 = d2;
-                                        ch1_5.attach_us(&ch1_h,f1_5);
-                    }else if(d3 > 0 && busy1_6 == 0){
-                                        f1_6 = ftime[d2];
-                                        busy1_6 = 1;
-                                        hold1_6 = d2;
-                                        ch1_6.attach_us(&ch1_h,f1_6);
                                     
 //------------------------------------------------------------------------------------------                                        
                     }else if(d3 == 0 && d2 == hold1_1){
@@ -136,18 +109,6 @@ int main()
                                         ch1_3.detach();
                                         busy1_3 = 0;
                                         hold1_3 = 255;
-                    }else if(d3 == 0 && d2 == hold1_4){
-                                        ch1_4.detach();
-                                        busy1_4 = 0;
-                                        hold1_4 = 255;
-                    }else if(d3 == 0 && d2 == hold1_5){
-                                        ch1_5.detach();
-                                        busy1_5 = 0;
-                                        hold1_5 = 255;
-                    }else if(d3 == 0 && d2 == hold1_6){
-                                        ch1_6.detach();
-                                        busy1_6 = 0;
-                                        hold1_6 = 255;
                 }
                 break;
                 
@@ -169,21 +130,6 @@ int main()
                                         busy2_3 = 1;
                                         hold2_3 = d2;
                                         ch2_3.attach_us(&ch2_h,f2_3);
-                    }else if(d3 > 0 && busy2_4 == 0){
-                                        f2_4 = ftime[d2];
-                                        busy2_4 = 1;
-                                        hold2_4 = d2;
-                                        ch2_4.attach_us(&ch2_h,f2_4);
-                    }else if(d3 > 0 && busy2_5 == 0){
-                                        f2_5 = ftime[d2];
-                                        busy2_5 = 1;
-                                        hold2_5 = d2;
-                                        ch2_5.attach_us(&ch2_h,f2_5);
-                    }else if(d3 > 0 && busy2_6 == 0){
-                                        f2_6 = ftime[d2];
-                                        busy2_6 = 1;
-                                        hold2_6 = d2;
-                                        ch2_6.attach_us(&ch2_h,f2_6);
                                     
 //------------------------------------------------------------------------------------------                                        
                     }else if(d3 == 0 && d2 == hold2_1){
@@ -198,18 +144,6 @@ int main()
                                         ch2_3.detach();
                                         busy2_3 = 0;
                                         hold2_3 = 255;
-                    }else if(d3 == 0 && d2 == hold2_4){
-                                        ch2_4.detach();
-                                        busy2_4 = 0;
-                                        hold2_4 = 255;
-                    }else if(d3 == 0 && d2 == hold2_5){
-                                        ch2_5.detach();
-                                        busy2_5 = 0;
-                                        hold2_5 = 255;
-                    }else if(d3 == 0 && d2 == hold2_6){
-                                        ch2_6.detach();
-                                        busy2_6 = 0;
-                                        hold2_6 = 255;
                 }
                 break;
                 
@@ -226,18 +160,6 @@ int main()
                             ch1_3.detach();
                             busy1_3 = 0;
                             hold1_3 = 255;
-                }else if(d2 == hold1_4){
-                            ch1_4.detach();
-                            busy1_4 = 0;
-                            hold1_4 = 255;
-                }else if(d2 == hold1_5){
-                            ch1_5.detach();
-                            busy1_5 = 0;
-                            hold1_5 = 255;
-                }else if(d2 == hold1_6){
-                            ch1_6.detach();
-                            busy1_6 = 0;
-                            hold1_6 = 255;
                 }
             break;
             
@@ -254,18 +176,6 @@ int main()
                             ch2_3.detach();
                             busy2_3 = 0;
                             hold2_3 = 255;
-                }else if(d2 == hold2_4){
-                            ch2_4.detach();
-                            busy2_4 = 0;
-                            hold2_4 = 255;
-                }else if(d2 == hold2_5){
-                            ch2_5.detach();
-                            busy2_5 = 0;
-                            hold2_5 = 255;
-                }else if(d2 == hold2_6){
-                            ch2_6.detach();
-                            busy2_6 = 0;
-                            hold2_6 = 255;
                 }
             break;
                 
@@ -275,10 +185,10 @@ int main()
             }
             
 //------------------------------------------------------------------------------
-            poly_n1 = busy1_1 + busy1_2 + busy1_3 + busy1_4 + busy1_5 + busy1_6;
+            poly_n1 = busy1_1 + busy1_2 + busy1_3;
             if(poly_n1 == 0){outled1 = 0;}else{outled1 = 1;}
 
-            poly_n2 = busy2_1 + busy2_2 + busy2_3 + busy2_4 + busy2_5 + busy2_6;
+            poly_n2 = busy2_1 + busy2_2 + busy2_3;
             if(poly_n2 == 0){outled2 = 0;}else{outled2 = 1;}
 //------------------------------------------------------------------------------
 
